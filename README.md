@@ -1,14 +1,16 @@
 # SHEILAN's Maya Tools
-Here's a small Maya plugin featuring every script I ever made for the program mostly to automate long and annoying jobs.
+Here's a small Maya plugin featuring every script I ever made for the program to automate long and annoying jobs.
 All codes are made to make your life easier, so if something is bothering you, let me know and I shall fix it.
 
 
 ## Features
 
 ### COD
-* Load FULL maps exported with Husky ([updated version](https://github.com/sheilan102/husky_modified)).
-* Combine separated body models into one, fullbody skeleton (supporting only BO4 currently).
+* Load FULL maps exported with Husky ([modified version](https://github.com/sheilan102/husky_modified)).
+* Combine separated body parts into one, fullbody skeleton (supporting only BO4 currently).
 
+### Apex Legends
+* Create HumanIK for Apex characters
 
 
 ## Installation & Usage
@@ -36,7 +38,20 @@ Launch Maya, go to `Window->Settings/Preferences->Plugin Manager`, look for `SHE
 
 
 #### Combining body parts
-1. Export your desired playermodel parts in **.MA format** (Torso, Legs, Arms & Head)
-2. Load each .MA file in Maya (without using the bind script yet)
+1. Export your desired playermodel parts in **.MA format** (Torso, Legs, Arms & Head).
+2. Load each .MA file in Maya (without using the bind script yet).
+3. Rename all groups to look like this (**LOD0** to **mesh**, and **Joints** to **skeleton**)/
 
-![lul](images/playermodelexample.png)
+![playerbody setup](images/playermodelexample.png)
+
+4. Run the script and you should have 4 `_mesh` groups and 1 `fullbody_skeleton` group.
+5. Now you proceed to loading the bind scripts (4 total).
+
+## Changelog
+
+***V** 1.00*
+
+* Release
+
+# Credit
+* Developed by SHEILAN ![twitter](images/icon_twitter.svg)

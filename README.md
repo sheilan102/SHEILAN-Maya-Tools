@@ -9,7 +9,7 @@ All codes are made to make your life easier, so if something is bothering you, l
 * Combine separated body models into one, fullbody skeleton (supporting only BO4 currently).
 
 
-## Installation & Usage
+## Installation
 
 Download all .py files and place them in -
 
@@ -20,3 +20,6 @@ Download all .py files and place them in -
 Launch Maya, go to `Window->Settings/Preferences->Plugin Manager`, look for `SHEILAN's Tools.py` and enable it.
 
 
+## Usage
+
+#### Map Importer

@@ -6,9 +6,11 @@ All codes are made to make your life easier, so if something is bothering you, l
 * Load FULL maps exported with Husky ([updated version](https://github.com/sheilan102/husky_modified)).
 * Combine separated body models into one, fullbody skeleton (supporting only BO4 currently).
 
+
 ## Installation & Usage
 
 Download all .py files and place them in -
 
 64 Bit `C:\Program Files\Autodesk\Maya2018\bin\plug-ins`
+
 32 Bit `C:\Program Files (x86)\Autodesk\Maya2018\bin\plug-ins`

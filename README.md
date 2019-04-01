@@ -6,9 +6,11 @@ All codes are made to make your life easier, so if something is bothering you, l
 ## Features
 
 ### COD
-* Load FULL maps exported with Husky ([updated version](https://github.com/sheilan102/husky_modified)).
+* Load FULL maps exported with Husky ([modified version](https://github.com/sheilan102/husky_modified)).
 * Combine separated body parts into one, fullbody skeleton (supporting only BO4 currently).
 
+### Apex Legends
+* Create HumanIK for Apex characters
 
 
 ## Installation & Usage

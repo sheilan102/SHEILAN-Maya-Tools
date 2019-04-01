@@ -5,13 +5,13 @@ All codes are made to make your life easier, so if something is bothering you, l
 
 ## Features
 
-#### COD
+### COD
 * Load FULL maps exported with Husky ([updated version](https://github.com/sheilan102/husky_modified)).
 * Combine separated body models into one, fullbody skeleton (supporting only BO4 currently).
 
 
 
-## Installation
+## Installation & Usage
 
 Download all .py files and place them in -
 
@@ -21,8 +21,6 @@ Download all .py files and place them in -
 
 Launch Maya, go to `Window->Settings/Preferences->Plugin Manager`, look for `SHEILAN's Tools.py` and enable it.
 
-
-## Usage
 
 ### Map Importer
 

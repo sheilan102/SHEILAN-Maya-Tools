@@ -21,6 +21,7 @@ Download all .py files and place them in -
 
 Launch Maya, go to `Window->Settings/Preferences->Plugin Manager`, look for `SHEILAN's Tools.py` and enable it.
 
+#
 
 #### Map Importer
 

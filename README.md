@@ -53,7 +53,6 @@ Launch Maya, go to `Window->Settings/Preferences->Plugin Manager`, look for `SHE
 
 * Release
 #
-
 ## Credit
 I made those scripts as personal projects for myself and hopefully for other people who'll find good use in them.
 Donations or credit aren't necessary but very appreciated! [![paypal](images/icon_paypal.svg)](https://paypal.me/ksheilan)

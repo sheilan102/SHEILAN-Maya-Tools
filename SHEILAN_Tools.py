@@ -4,8 +4,6 @@ import math
 import json
 import maya.mel as mel
 import maya.cmds as cmds
-import maya.OpenMaya as OpenMaya
-import maya.OpenMayaAnim as OpenMayaAnim
 import maya.OpenMayaMPx as OpenMayaMPx
 import codimporter as CODImporter
 import codxmodelalign as CODXModelAlign

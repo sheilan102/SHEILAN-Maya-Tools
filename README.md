@@ -2,10 +2,13 @@
 Here's a small Maya plugin featuring every script I ever made for the program mostly to automate long and annoying jobs.
 All codes are made to make your life easier, so if something is bothering you, let me know and I shall fix it.
 
-### Features
+## Features
+
+### COD
 * Load FULL maps exported with Husky ([updated version](https://github.com/sheilan102/husky_modified)).
 * Combine separated body models into one, fullbody skeleton (supporting only BO4 currently).
 
+### Apex Legends
 
 ## Installation & Usage
 

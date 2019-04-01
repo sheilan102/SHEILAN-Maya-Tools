@@ -38,5 +38,5 @@ Launch Maya, go to `Window->Settings/Preferences->Plugin Manager`, look for `SHE
 #### Combining body parts
 1. Export your desired playermodel parts in **.MA format** (Torso, Legs, Arms & Head)
 2. Load each .MA file in Maya (without using the bind script yet)
-
-![lul](images/playermodelexample.png)
+3. Rename all groups to look like this (**LOD0** to **mesh**, and **Joints** to **skeleton**)
+![playerbody setup](images/playermodelexample.png)

@@ -47,6 +47,6 @@ Launch Maya, go to `Window->Settings/Preferences->Plugin Manager`, look for `SHE
 
 ## Changelog
 
-*VERSION 1.00*
+***VERSION** 1.00*
 
 * Release

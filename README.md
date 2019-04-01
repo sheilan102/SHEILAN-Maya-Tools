@@ -49,9 +49,9 @@ Launch Maya, go to `Window->Settings/Preferences->Plugin Manager`, look for `SHE
 
 ## Changelog
 
-***V** 0.0.1*
+***V** 1.0.0*
 
-* Release
+* Initial Release
 
 ## Credit
 I made those scripts as personal projects for myself and hopefully for other people who'll find good use in them.

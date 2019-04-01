@@ -27,4 +27,4 @@ Launch Maya, go to `Window->Settings/Preferences->Plugin Manager`, look for `SHE
 Select MAP Folder (Husky export with all map data)
 Select Greyhound's XModel directory (**e.g. `..\Greyhound\exported_files\black_ops_2\xmodels`**
 
-* **MAKE SURE YOU EXPORTED MAP MODELS FIRST**
+> **MAKE SURE YOU EXPORTED MAP MODELS FIRST**

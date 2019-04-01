@@ -1,14 +1,9 @@
 """A plugin designed to import and export SE formats from Autodesk Maya"""
 
-# SE formats import / export plugin for Maya
-# Developed by DTZxPorter
-
 import math
 import json
 import maya.mel as mel
 import maya.cmds as cmds
-import maya.OpenMaya as OpenMaya
-import maya.OpenMayaAnim as OpenMayaAnim
 import maya.OpenMayaMPx as OpenMayaMPx
 import codimporter as CODImporter
 import codxmodelalign as CODXModelAlign

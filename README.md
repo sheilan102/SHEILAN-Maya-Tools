@@ -22,8 +22,8 @@ Download all .py files and place them in -
 Launch Maya, go to `Window->Settings/Preferences->Plugin Manager`, look for `SHEILAN's Tools.py` and enable it.
 
 
-
-
 ## Usage
 
 #### Map Importer
+
+First select MAP Folder (Husky export with all map data), then select Greyhound's XModel directory (**e.g. `..\Greyhound\exported_files\black_ops_2\xmodels**` (MAKE SURE YOU EXPORTED MAP MODELS FIRST)

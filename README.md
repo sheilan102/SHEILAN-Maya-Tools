@@ -10,7 +10,7 @@ All codes are made to make your life easier, so if something is bothering you, l
 * Combine separated body parts into one, fullbody skeleton (supporting only BO4 currently).
 
 ### Apex Legends
-* Create HumanIK for Apex characters
+* Create HumanIK for Apex characters (Coming tomorrow)
 
 
 ## Installation & Usage

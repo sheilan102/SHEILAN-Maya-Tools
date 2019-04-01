@@ -9,5 +9,6 @@ All codes are made to make your life easier, so if something is bothering you, l
 ## Installation & Usage
 
 Download all .py files and place them in -
+
 64 Bit `C:\Program Files\Autodesk\Maya2018\bin\plug-ins`
 32 Bit `C:\Program Files (x86)\Autodesk\Maya2018\bin\plug-ins`

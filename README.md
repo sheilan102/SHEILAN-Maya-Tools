@@ -33,3 +33,9 @@ Launch Maya, go to `Window->Settings/Preferences->Plugin Manager`, look for `SHE
 6. Paste the search string you copied into the filter, and export all models.
 7. Load Maya and proceed to importing the map (it's under SHEILAN's Tools).
 8. Select MAP folder, then select Greyhound's xmodels folder (**e.g. `..\Greyhound\exported_files\black_ops_2\xmodels`**).
+
+
+#### Combining body parts
+1. Export your desired playermodel parts in **.MA format** (Torso, Legs, Arms & Head)
+2. Load each .MA file in Maya (without using the bind script yet)
+(

@@ -1,5 +1,5 @@
 # SHEILAN's Maya Tools
-Here's a small Maya plugin featuring every script I ever made for the program mostly to automate long and annoying jobs.
+Here's a small Maya plugin featuring every script I ever made for the program to automate long and annoying jobs.
 All codes are made to make your life easier, so if something is bothering you, let me know and I shall fix it.
 
 
@@ -7,7 +7,7 @@ All codes are made to make your life easier, so if something is bothering you, l
 
 ### COD
 * Load FULL maps exported with Husky ([updated version](https://github.com/sheilan102/husky_modified)).
-* Combine separated body models into one, fullbody skeleton (supporting only BO4 currently).
+* Combine separated body parts into one, fullbody skeleton (supporting only BO4 currently).
 
 
 
@@ -47,6 +47,6 @@ Launch Maya, go to `Window->Settings/Preferences->Plugin Manager`, look for `SHE
 
 ## Changelog
 
-***VERSION** 1.00*
+***V** 1.00*
 
 * Release

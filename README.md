@@ -39,4 +39,4 @@ Launch Maya, go to `Window->Settings/Preferences->Plugin Manager`, look for `SHE
 1. Export your desired playermodel parts in **.MA format** (Torso, Legs, Arms & Head)
 2. Load each .MA file in Maya (without using the bind script yet)
 
-![lul](https://cdn.discordapp.com/attachments/496709216686571552/561695980051890186/unknown.png)
+![lul](images/playermodelexample.png)

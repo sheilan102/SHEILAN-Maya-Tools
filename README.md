@@ -54,4 +54,7 @@ Launch Maya, go to `Window->Settings/Preferences->Plugin Manager`, look for `SHE
 * Release
 
 # Credit
-* Developed by SHEILAN ![twitter](images/icon_twitter.svg)
+I made those scripts as personal projects for myself and hopefully for other people who'll find good use in them.
+Donations or credit aren't necessary but very appreciated! [![paypal](images/icon_paypal.svg)](https://paypal.me/ksheilan)
+
+[![twitter](images/icon_twitter.svg)](https://twitter.com/SHEILANff)   [![youtube](images/icon_youtube.svg)](https://www.youtube.com/user/kalaboKKz)

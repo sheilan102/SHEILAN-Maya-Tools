@@ -44,3 +44,7 @@ Launch Maya, go to `Window->Settings/Preferences->Plugin Manager`, look for `SHE
 
 4. Run the script and you should have 4 `_mesh` groups and 1 `fullbody_skeleton` group.
 5. Now you proceed to loading the bind scripts (4 total).
+
+## Changelog
+
+version 1.00 - Release

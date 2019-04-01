@@ -52,3 +52,6 @@ Launch Maya, go to `Window->Settings/Preferences->Plugin Manager`, look for `SHE
 ***V** 1.00*
 
 * Release
+
+# Credit
+* Developed by SHEILAN ![twitter](images/icon_twitter.svg)

@@ -1,8 +1,5 @@
 """A plugin designed to import and export SE formats from Autodesk Maya"""
 
-# SE formats import / export plugin for Maya
-# Developed by DTZxPorter
-
 import math
 import json
 import maya.mel as mel

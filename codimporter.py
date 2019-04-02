@@ -24,11 +24,12 @@ class CODMAP(object):
             print(map_dest)
             print(xmodel_folder)
             print(map_name)
-            try:
-                self.importMap(map_dest,xmodel_folder,map_name)
-                SHEILAN_Tools.__log_info__(True, "Map imported succesfully")
-            except:
-                SHEILAN_Tools.__log_info__(False, "Wrong directory selected")
+            self.importMap(map_dest,xmodel_folder,map_name)
+            # try:
+            #     self.importMap(map_dest,xmodel_folder,map_name)
+            #     SHEILAN_Tools.__log_info__(True, "Map imported succesfully")
+            # except:
+            #     SHEILAN_Tools.__log_info__(False, "Wrong directory selected")
         else:
             SHEILAN_Tools.__log_info__(False, "One or two of the necessary directories were not selected")
 
@@ -41,13 +42,12 @@ class CODMAP(object):
         ):
  
         # Load XModels JSON File
- 
         
         # Load Model Properties
         #cmds.file(force=True)
         json_models = open(map_dest + ".json") 
         modeldata = json.load(json_models)
- 
+
         # Model Count
  
         curAmount = 1
@@ -94,15 +94,10 @@ class CODMAP(object):
  
             # Loading progress
             #SHEILAN_Tools.__log_info__(True, "loaded %i" % curAmount)
-            print("loaded %i" % int(curAmount/len(modeldata['XModels'])*100))
+            print("loaded " + str(curAmount) + " of " + str(len(modeldata['XModels'])))
+            #print("loaded %i" % int(curAmount/len(modeldata['XModels'])*100))
 			
             curAmount += 1
- 
-            # If a corrupted model is loaded, it still adds a blank mesh, so we gotta delete it
- 
-            #if cmds.objExists(modelname + '_LOD0') == True:
-            #    cmds.delete(modelname + '_LOD0')
-            #    cmds.delete('Joints')
  
             reporter = mel.eval('string $tmp = $gCommandReporter;')
             cmds.cmdScrollFieldReporter(reporter, e=True, clear=True)

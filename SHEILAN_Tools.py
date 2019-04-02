@@ -78,7 +78,7 @@ def __create_menu__():
 
     cmds.menuItem(label="Import COD Map",
                   annotation="Imports a COD map exported by Husky (SHEILAN's version)", command=lambda x: CODImporter.CODMAP())
-    cmds.menuItem(label="Combine skeleton parts",
+    cmds.menuItem(label="Import fullbody characters",
                   annotation="Combine all seperated body parts into one skeleton", command=lambda x: __align_xmodel__())
 
     cmds.setParent(cod_menu, menu=True)
@@ -88,11 +88,12 @@ def __create_menu__():
     # Reload and about controls
     cmds.menuItem(label="About", command=lambda x: __about_window__())
 def __align_xmodel__():
-        try:
-                CODXModelAlign.XModelAlign()
-        except:
-                print("lul")
-                __log_info__(False, "No playermodels in the scene")
+        CODXModelAlign.XModelAlign()
+        # try:
+        #         CODXModelAlign.XModelAlign()
+        # except:
+        #         print("lul")
+        #         __log_info__(False, "No playermodels in the scene")
         
 def initializePlugin(m_object):
     """Register the plugin"""

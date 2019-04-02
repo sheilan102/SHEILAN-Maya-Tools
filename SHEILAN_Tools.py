@@ -39,6 +39,7 @@ def __log_info__(type=True, format_str=""):
                 logger.info(format_str)
         else:
                 logger.warning(format_str)
+		
 def __importfile_dialog__(filter_str="", caption_str="", lul=1):
 	"""Ask the user for an input file"""
 	if cmds.about(version=True)[:4] == "2012":
@@ -46,9 +47,9 @@ def __importfile_dialog__(filter_str="", caption_str="", lul=1):
 			fileMode=lul, fileFilter=filter_str, caption=caption_str)
 	else:
 		import_from = cmds.fileDialog2(fileMode=lul,
-										dialogStyle=2,
-										fileFilter=filter_str,
-										caption=caption_str)
+					       dialogStyle=2,
+					       fileFilter=filter_str,
+					       caption=caption_str)
 
 
 	

@@ -48,7 +48,10 @@ Launch Maya, go to `Window->Settings/Preferences->Plugin Manager`, look for `SHE
 
 ## Changelog
 
-***V** 1.0.0*
+***1.0.1***
+* New fullbody import UI
+
+***1.0.0***
 
 * Initial Release
 

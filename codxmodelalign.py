@@ -18,9 +18,11 @@ class XModelAlign(object):
             body_rig = findRigOfModel(body_file)
             head_folder = self.findFolderOfModel(head_file)
             head_rig = findRigOfModel(head_file)
-            
             print("body folder - " + body_folder)
             print("body rig - " + body_rig)
+            
+            loadModel(body_file, body)
+            loadModel(head_file, head)
 
         # Delete Torso's hip joints
         cmds.delete("body_skeleton|j_mainroot|j_hip_le")
@@ -91,5 +93,9 @@ class XModelAlign(object):
     def findRigOfModel(self, file_path=""):
         rig_file = file_path.split('/')[-1]
         rig_file.replace(".ma", "_BIND.mel")
-
-        return rig_file
+       
+    def loadModel(self, file_path="", part=""):
+        cmds.file(body_file, i=True)
+        modelname = body_file.split("\\")[-1].split(".")[0]
+        cmds.rename(modelname, part + "_mesh")
+        cmds.rename("Joints", part + "_skeleton")

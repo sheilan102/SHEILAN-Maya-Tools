@@ -39,6 +39,28 @@ def __log_info__(type=True, format_str=""):
                 logger.info(format_str)
         else:
                 logger.warning(format_str)
+def __importfile_dialog__(filter_str="", caption_str="", lul=1):
+	"""Ask the user for an input file"""
+	if cmds.about(version=True)[:4] == "2012":
+		import_from = cmds.fileDialog2(
+			fileMode=lul, fileFilter=filter_str, caption=caption_str)
+	else:
+		import_from = cmds.fileDialog2(fileMode=lul,
+										dialogStyle=2,
+										fileFilter=filter_str,
+										caption=caption_str)
+
+
+	
+	if not import_from or import_from[0].strip() == "":
+		return None
+
+	path = import_from[0].strip()
+	path_split = os.path.splitext(path)
+	if path_split[1] == ".*":
+		path = path_split
+
+	return path.replace("/", "\\")
 
 def __create_menu__():
     """Creates the plugin menu"""

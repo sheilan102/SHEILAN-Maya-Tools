@@ -7,7 +7,7 @@ All codes are made to make your life easier, so if something is bothering you, l
 
 ### COD
 * Load FULL maps exported with Husky ([modified version](https://github.com/sheilan102/husky_modified)).
-* Combine separated body parts into one, fullbody skeleton (supporting only BO4 currently).
+* Import separated body parts into fullbody character.
 
 ### Apex Legends
 * Create HumanIK for Apex characters (Coming soon)

@@ -126,11 +126,11 @@ class CODMAP(object):
             cmds.cmdScrollFieldReporter(reporter, e=True, clear=True)
  
 		# Print corrupted model names
-		for b in badModels:
+        for b in badModels:
 			print b
 			
-		# Delete all corrupted models
-		for o in cmds.ls:
+        # Delete all corrupted models
+        for o in cmds.ls:
 			if "LOD" in o or "Joints"  in o:
 				cmds.delete(o)
 				

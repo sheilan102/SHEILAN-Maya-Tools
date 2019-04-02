@@ -102,17 +102,17 @@ class CODMAP(object):
             duplicates = 1
  
             # Load current XModel data from JSON
-			model_details = modeldata['XModels'][XModel]
+            model_details = modeldata['XModels'][XModel]
             modelname = model_details['Name']
-			try:
-				self.addXModel(xmodel_folder, XModel, modeldata, 1)
-			except:
-				if not any(modelname in s for s in some_list):
-					badModels.append(modelname)
+            try:
+		self.addXModel(xmodel_folder, XModel, modeldata, 1)
+            except:
+		if not any(modelname in s for s in some_list):
+			badModels.append(modelname)
  
             # Loading progress
             #SHEILAN_Tools.__log_info__(True, 'loaded ' + str(curAmount) + ' of ' + str(len(modeldata['XModels'])))
-			print("loaded " + str(curAmount) + " of " + str(len(modeldata['XModels'])))
+			print 'loaded %i" % int(curAmount/len(modeldata['XModels'])*100)
 			
             curAmount += 1
  
@@ -127,12 +127,12 @@ class CODMAP(object):
  
 	# Print corrupted model names
         for b in badModels:
-		print b
+            print b
 			
         # Delete all corrupted models
         for o in cmds.ls:
-		if "LOD" in o or "Joints"  in o:
-			cmds.delete(o)
+            if "LOD" in o or "Joints"  in o:
+		cmds.delete(o)
 				
         # Rescale mapGeo accordingly to match XModels' scale
  
@@ -153,7 +153,7 @@ class CODMAP(object):
         print 'imported %i models' % curAmount
         print '%i corruputed models' % errors
         
-		#for b in badModels:
+	#for b in badModels:
         #    print b
  
  

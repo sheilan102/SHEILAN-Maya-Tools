@@ -8,6 +8,8 @@ import maya.OpenMayaMPx as OpenMayaMPx
 import codimporter as CODImporter
 import codxmodelalign as CODXModelAlign
 import logging
+import os
+import os.path
 
 def __first__(first_iter, second_iter):
     """Compare two iterable objects"""
@@ -89,7 +91,7 @@ def __align_xmodel__():
         try:
                 CODXModelAlign.XModelAlign()
         except:
-                print"lul"
+                print("lul")
                 __log_info__(False, "No playermodels in the scene")
         
 def initializePlugin(m_object):

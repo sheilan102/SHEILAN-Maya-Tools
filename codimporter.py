@@ -32,26 +32,6 @@ class CODMAP(object):
         else:
             SHEILAN_Tools.__log_info__(False, "One or two of the necessary directories were not selected")
 
-    def __importfile_dialog__(self, filter_str="", caption_str="", lul=1):
-        """Ask the user for an input file"""
-        if cmds.about(version=True)[:4] == "2012":
-            import_from = cmds.fileDialog2(
-                fileMode=lul, fileFilter=filter_str, caption=caption_str)
-        else:
-            import_from = cmds.fileDialog2(fileMode=lul,
-                                        dialogStyle=2,
-                                        fileFilter=filter_str,
-                                        caption=caption_str)
-        if not import_from or import_from[0].strip() == "":
-            return None
-
-        path = import_from[0].strip()
-        path_split = os.path.splitext(path)
-        if path_split[1] == ".*":
-            path = path_split
-
-        return path.replace("/", "\\")
-
 
     def importMap(
         self,
@@ -105,14 +85,16 @@ class CODMAP(object):
             model_details = modeldata['XModels'][XModel]
             modelname = model_details['Name']
             try:
-		self.addXModel(xmodel_folder, XModel, modeldata, 1)
+                self.addXModel(xmodel_folder, XModel, modeldata, 1)
             except:
-		if not any(modelname in s for s in some_list):
-			badModels.append(modelname)
+                print("lul")
+
+            #if not any(modelname in s for s in some_list):
+            #    badModels.append(modelname)
  
             # Loading progress
-            #SHEILAN_Tools.__log_info__(True, 'loaded ' + str(curAmount) + ' of ' + str(len(modeldata['XModels'])))
-			print 'loaded %i" % int(curAmount/len(modeldata['XModels'])*100)
+            #SHEILAN_Tools.__log_info__(True, "loaded %i" % curAmount)
+            print("loaded %i" % int(curAmount/len(modeldata['XModels'])*100))
 			
             curAmount += 1
  
@@ -125,14 +107,15 @@ class CODMAP(object):
             reporter = mel.eval('string $tmp = $gCommandReporter;')
             cmds.cmdScrollFieldReporter(reporter, e=True, clear=True)
  
-	# Print corrupted model names
-        for b in badModels:
-            print b
+        # Print corrupted model names
+        #for b in badModels:
+        #    print(b)
 			
         # Delete all corrupted models
-        for o in cmds.ls:
-            if "LOD" in o or "Joints"  in o:
-		cmds.delete(o)
+        for o in cmds.ls():
+            if "|" not in o:
+                if "Joints" in o or "LOD" in o:
+                    cmds.delete(o)
 				
         # Rescale mapGeo accordingly to match XModels' scale
  
@@ -226,4 +209,3 @@ class CODMAP(object):
                         float(xmodelData['Scale']) * 0.5,
                         float(xmodelData['Scale']) * 0.5, currentModel,
                         absolute=True)
-        

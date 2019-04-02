@@ -3,11 +3,25 @@
 import maya.cmds as cmds
 import pymel.core as pm
 import logging
+import SHEILAN_Tools
 
 class XModelAlign(object):
  
     def __init__(self):
         self.product = ''
+        body_file = SHEILAN_Tools.__importfile_dialog__(
+            ".MA Files (*.ma)", "Load body model", 1)
+        head_file = SHEILAN_Tools.__importfile_dialog__(
+            ".MA Files (*.ma)", "Load head model", 1)
+        if body_file and head_file:
+            body_folder = self.findFolderOfModel(body_file)
+            body_rig = findRigOfModel(body_file)
+            head_folder = self.findFolderOfModel(head_file)
+            head_rig = findRigOfModel(head_file)
+            
+            print("body folder - " + body_folder)
+            print("body rig - " + body_rig)
+
         # Delete Torso's hip joints
         cmds.delete("body_skeleton|j_mainroot|j_hip_le")
         cmds.delete("body_skeleton|j_mainroot|j_hip_ri")
@@ -66,3 +80,16 @@ class XModelAlign(object):
         position = pm.xform(object1, q=1, ws=1, rp=1)
         move_piv = pm.xform(object2,ws=1, rp=position,piv=position)
     
+    def findFolderOfModel(self, file_path=""):
+        list = file_path.split('/')[0:-1]
+        f = ''
+        for l in list:
+            f+=l + "/"
+
+        return f[:-1]
+
+    def findRigOfModel(self, file_path=""):
+        rig_file = file_path.split('/')[-1]
+        rig_file.replace(".ma", "_BIND.mel")
+
+        return rig_file

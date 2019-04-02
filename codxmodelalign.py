@@ -21,8 +21,8 @@ class XModelAlign(object):
             print("body folder - " + body_folder)
             print("body rig - " + body_rig)
             
-            loadModel(body_file, body)
-            loadModel(head_file, head)
+            loadModel(body_file, "body")
+            loadModel(head_file, "head")
 
         # Delete Torso's hip joints
         cmds.delete("body_skeleton|j_mainroot|j_hip_le")

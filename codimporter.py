@@ -125,14 +125,14 @@ class CODMAP(object):
             reporter = mel.eval('string $tmp = $gCommandReporter;')
             cmds.cmdScrollFieldReporter(reporter, e=True, clear=True)
  
-		# Print corrupted model names
+	# Print corrupted model names
         for b in badModels:
-			print b
+		print b
 			
         # Delete all corrupted models
         for o in cmds.ls:
-			if "LOD" in o or "Joints"  in o:
-				cmds.delete(o)
+		if "LOD" in o or "Joints"  in o:
+			cmds.delete(o)
 				
         # Rescale mapGeo accordingly to match XModels' scale
  

@@ -13,9 +13,9 @@ class CODMAP(object):
  
     def __init__(self):
         self.product = ''
-        map_dest = self.__importfile_dialog__(
+        map_dest = SHEILAN_Tools.__importfile_dialog__(
             "MAP Folder", "Locate MAP directory", 3)
-        xmodel_folder = self.__importfile_dialog__(
+        xmodel_folder = SHEILAN_Tools.__importfile_dialog__(
             "XModel Folder", "Locate Greyhound's XModel directory", 3)
         if map_dest and xmodel_folder:
             map_name = map_dest.split("\\")

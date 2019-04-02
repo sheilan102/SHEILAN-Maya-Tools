@@ -102,24 +102,38 @@ class CODMAP(object):
             duplicates = 1
  
             # Load current XModel data from JSON
-            self.addXModel(xmodel_folder, XModel, modeldata, 1)
-            model_details = modeldata['XModels'][XModel]
+			model_details = modeldata['XModels'][XModel]
             modelname = model_details['Name']
+			try:
+				self.addXModel(xmodel_folder, XModel, modeldata, 1)
+			except:
+				if not any(modelname in s for s in some_list):
+					badModels.append(modelname)
  
             # Loading progress
-            SHEILAN_Tools.__log_info__(True, 'loaded ' + str(curAmount) + ' of ' + str(len(modeldata['XModels'])))
- 
+            #SHEILAN_Tools.__log_info__(True, 'loaded ' + str(curAmount) + ' of ' + str(len(modeldata['XModels'])))
+			print("loaded " + str(curAmount) + " of " + str(len(modeldata['XModels'])))
+			
             curAmount += 1
  
             # If a corrupted model is loaded, it still adds a blank mesh, so we gotta delete it
  
-            if cmds.objExists(modelname + '_LOD0') == True:
-                cmds.delete(modelname + '_LOD0')
-                cmds.delete('Joints')
+            #if cmds.objExists(modelname + '_LOD0') == True:
+            #    cmds.delete(modelname + '_LOD0')
+            #    cmds.delete('Joints')
  
-            #reporter = mel.eval('string $tmp = $gCommandReporter;')
-            #cmds.cmdScrollFieldReporter(reporter, e=True, clear=True)
+            reporter = mel.eval('string $tmp = $gCommandReporter;')
+            cmds.cmdScrollFieldReporter(reporter, e=True, clear=True)
  
+		# Print corrupted model names
+		for b in badModels:
+			print b
+			
+		# Delete all corrupted models
+		for o in cmds.ls:
+			if "LOD" in o or "Joints"  in o:
+				cmds.delete(o)
+				
         # Rescale mapGeo accordingly to match XModels' scale
  
         cmds.scale(0.3937007874015748,
@@ -138,8 +152,9 @@ class CODMAP(object):
  
         print 'imported %i models' % curAmount
         print '%i corruputed models' % errors
-        for b in badModels:
-            print b
+        
+		#for b in badModels:
+        #    print b
  
  
     def addXModel(self, xmodel_folder, XModel, data, duplicates):

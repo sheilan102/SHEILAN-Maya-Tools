@@ -46,8 +46,6 @@ Launch Maya, go to `Window->Settings/Preferences->Plugin Manager`, look for `SHE
 
 * After importing your second player to the scene, BIND scripts will give you error when trying to rig, because there will be more than one of each joint name, so what I suggest you to do is to `select all joint groups`, go to `Modify/Prefix Hierarchy Names` and select some prefix. Then you load the next BIND script, and rename them back through `Modify/Search & Replace Names` (search for whatever you wrote for prefix, and replace it with nothing).
 
-![playerbody setup](images/playermodelexample.png)
-
 4. Run the script and you should have 4 `_mesh` groups and 1 `fullbody_skeleton` group.
 5. Now you proceed to loading the bind scripts (4 total).
 

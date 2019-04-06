@@ -5,7 +5,6 @@ import os
 import os.path
 import maya.cmds as cmds
 import json
-import maya.mel as mel
 import logging
 import SHEILAN_Tools
 
@@ -94,17 +93,10 @@ class CODMAP(object):
  
             # Loading progress
             #SHEILAN_Tools.__log_info__(True, "loaded %i" % curAmount)
-            print("loaded " + str(curAmount) + " of " + str(len(modeldata['XModels'])))
-            #print("loaded %i" % int(curAmount/len(modeldata['XModels'])*100))
+            #print("loaded " + str(curAmount) + " of " + str(len(modeldata['XModels'])))
 			
             curAmount += 1
  
-            reporter = mel.eval('string $tmp = $gCommandReporter;')
-            cmds.cmdScrollFieldReporter(reporter, e=True, clear=True)
- 
-        # Print corrupted model names
-        #for b in badModels:
-        #    print(b)
 			
         # Delete all corrupted models
         for o in cmds.ls():

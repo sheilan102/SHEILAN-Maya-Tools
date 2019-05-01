@@ -6,7 +6,7 @@ All codes are made to make your life easier, so if something is bothering you, l
 ## Features
 
 ### COD
-* Load FULL maps exported with [C2M](https://github.com/sheilan102/C2M).
+* Load FULL maps exported with [**C2M**](https://github.com/sheilan102/C2M).
 * Import separated body parts into fullbody character.
 
 

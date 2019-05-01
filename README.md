@@ -6,11 +6,8 @@ All codes are made to make your life easier, so if something is bothering you, l
 ## Features
 
 ### COD
-* Load FULL maps exported with Husky ([modified version](https://github.com/sheilan102/husky_modified)).
+* Load FULL maps exported with [**C2M**](https://github.com/sheilan102/C2M).
 * Import separated body parts into fullbody character.
-
-### Apex Legends
-* Create HumanIK for Apex characters (Coming soon)
 
 
 ## Installation & Usage
@@ -28,7 +25,7 @@ Launch Maya, go to `Window->Settings/Preferences->Plugin Manager`, look for `SHE
 
 #### Map Importer
 
-1. Export MAP using husky_modified (above).
+1. Export MAP using C2M (above).
 2. Go to exported MAP's folder, and open **`mp_mapname_xmodelList.txt`**.
 3. Copy the search string as it is, and load Greyhound.
 5. Set greyhound to load models only (preferrably), and export format to .SE.

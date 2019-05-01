@@ -9,9 +9,6 @@ All codes are made to make your life easier, so if something is bothering you, l
 * Load FULL maps exported with Husky ([modified version](https://github.com/sheilan102/husky_modified)).
 * Import separated body parts into fullbody character.
 
-### Apex Legends
-* Create HumanIK for Apex characters (Coming soon)
-
 
 ## Installation & Usage
 

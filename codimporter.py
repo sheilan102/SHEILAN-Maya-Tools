@@ -4,6 +4,7 @@ from functools import partial
 import os
 import os.path
 import maya.cmds as cmds
+import maya.mel as mel
 import json
 import logging
 import SHEILAN_Tools
@@ -44,13 +45,11 @@ class CODMAP(object):
         
         # Load Model Properties
         #cmds.file(force=True)
-        json_models = open(map_dest + ".json") 
+        json_models = open(map_dest + "_xmodels.json") 
         modeldata = json.load(json_models)
 
         # Model Count
- 
         curAmount = 1
-        errors = 0
         badModels = []
 
         # Create groups for the loaded data
@@ -74,28 +73,23 @@ class CODMAP(object):
  
         # Read XModels data
  
-        for XModel in modeldata['XModels']:
- 
-            # duplicates counter
- 
-            duplicates = 1
- 
+        for XModel in modeldata:
             # Load current XModel data from JSON
-            model_details = modeldata['XModels'][XModel]
-            modelname = model_details['Name']
-            try:
-                self.addXModel(xmodel_folder, XModel, modeldata, 1)
-            except:
-                print("lul")
+            #print(modelname)
+            #print(XModel)
+            if 'Name' in XModel:    
+                try:
+                    self.addXModel(xmodel_folder, XModel, 1, badModels)
+                except:
+                    return
 
-            #if not any(modelname in s for s in some_list):
-            #    badModels.append(modelname)
  
             # Loading progress
-            #SHEILAN_Tools.__log_info__(True, "loaded %i" % curAmount)
-            #print("loaded " + str(curAmount) + " of " + str(len(modeldata['XModels'])))
-			
+            #SHEILAN_Tools.__log_info__(True, "loaded %i" % len(modeldata))
+            print("loaded " + str(curAmount) + " of " + str(len(modeldata)))
             curAmount += 1
+            #reporter = mel.eval('string $tmp = $gCommandReporter;')
+            #cmds.cmdScrollFieldReporter(reporter, e=True, clear=True)
  
 			
         # Delete all corrupted models
@@ -120,25 +114,23 @@ class CODMAP(object):
  
         cmds.scale(0.01, 0.01, 0.01, mapname + '_group', absolute=True)
  
-        print 'imported %i models' % curAmount
-        print '%i corruputed models' % errors
-        
-	#for b in badModels:
-        #    print b
+        print('imported %i models' % (len(modeldata)-(len(badModels))))
+        print('%i corruputed models' % len(badModels))
+        print(badModels)
+
  
  
-    def addXModel(self, xmodel_folder, XModel, data, duplicates):
+    def addXModel(self, xmodel_folder, XModel, duplicates, badModels):
         good_model = True
-        xmodelData = data['XModels'][XModel]
-        modelname = xmodelData['Name']
+        modelname = XModel['Name']
         if "/" in modelname:
             modelname = modelname.split("/")[1]
         if "@" in modelname:
             mayamodel = modelname.replace("@","_")
         else:
             mayamodel = modelname
-        xmodelPos = [xmodelData['PosX'],xmodelData['PosY'],xmodelData['PosZ']]
-        xmodelRot = [xmodelData['RotX'],xmodelData['RotY'],xmodelData['RotZ']]
+        xmodelPos = [XModel['PosX'],XModel['PosY'],XModel['PosZ']]
+        xmodelRot = [XModel['RotX'],XModel['RotY'],XModel['RotZ']]
         try:
             # Check if model exists and duplicate, to avoid importing same model twice
             if cmds.objExists(mayamodel + '__%i' % duplicates) == True:
@@ -192,7 +184,10 @@ class CODMAP(object):
 
             # Scale model
 
-            cmds.scale(float(xmodelData['Scale']) * 0.5,
-                        float(xmodelData['Scale']) * 0.5,
-                        float(xmodelData['Scale']) * 0.5, currentModel,
+            cmds.scale(float(XModel['Scale']) * 0.5,
+                        float(XModel['Scale']) * 0.5,
+                        float(XModel['Scale']) * 0.5, currentModel,
                         absolute=True)
+
+        if not good_model:
+            badModels.append(modelname)

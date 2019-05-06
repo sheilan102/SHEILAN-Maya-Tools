@@ -20,7 +20,6 @@ Download all .py files and place them in -
 
 Launch Maya, go to `Window->Settings/Preferences->Plugin Manager`, look for `SHEILAN's Tools.py` and enable it.
 
-* To use MAP Importer you need to install [DTZxPorter's SETools plugin](https://github.com/dtzxporter/SETools).
 #
 
 #### Map Importer

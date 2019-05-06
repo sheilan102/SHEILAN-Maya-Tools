@@ -71,6 +71,8 @@ class CODMAP(object):
         for m in MapList:
             cmds.parent(m, 'mapGeoemtry')
  
+        # Create .txt file with all bad models
+        f_badmodels = open(map_dest + "_badModels.txt", "w")
         # Read XModels data
  
         for XModel in modeldata:
@@ -89,17 +91,22 @@ class CODMAP(object):
             print("loaded " + str(curAmount) + " of " + str(len(modeldata)))
             curAmount += 1
             #reporter = mel.eval('string $tmp = $gCommandReporter;')
-            #cmds.cmdScrollFieldReporter(reporter, e=True, clear=True)
- 
+            #cmds.cmdScrollFieldReporter(reporter, e=True, clear=True
+
+        for b in badModels:
+            f_badmodels.write(b + "\n")
+        f_badmodels.close()
 			
         # Delete all corrupted models
         for o in cmds.ls():
             if "|" not in o:
                 if "Joints" in o or "LOD" in o:
-                    cmds.delete(o)
-				
+                    try:
+                        cmds.delete(o)
+                    except:
+                        continue
+
         # Rescale mapGeo accordingly to match XModels' scale
- 
         cmds.scale(0.3937007874015748,
                    0.3937007874015748,
                    0.3937007874015748,
@@ -131,39 +138,48 @@ class CODMAP(object):
             mayamodel = modelname
         xmodelPos = [XModel['PosX'],XModel['PosY'],XModel['PosZ']]
         xmodelRot = [XModel['RotX'],XModel['RotY'],XModel['RotZ']]
-        try:
-            # Check if model exists and duplicate, to avoid importing same model twice
-            if cmds.objExists(mayamodel + '__%i' % duplicates) == True:
-                # Go through duplicates untill there's an available name
+        
+        # Check if model exists and duplicate, to avoid importing same model twice
+        if cmds.objExists(mayamodel + '__%i' % duplicates) == True:
+            # Go through duplicates untill there's an available name
+            while cmds.objExists(mayamodel + '__%i'  % duplicates) == True:
+                duplicates += 1
 
-                while cmds.objExists(mayamodel + '__%i'  % duplicates) == True:
-                    duplicates += 1
+            cmds.duplicate(mayamodel + '__%i' % (duplicates-1))
 
-                cmds.duplicate(mayamodel + '__%i' % (duplicates-1))
-
-            else:
-
+        else:
+            try:
                 # If current XModel doesn't exist in the scene, import it
-
                 cmds.file(xmodel_folder + '\\' + modelname + '\\'
-                            + modelname + '_LOD0.semodel', i=True)
+                            + modelname + '_LOD0.ma', i=True)
+            except:
+                good_model = False
+                e = "import error"
 
-                # Delete XModel's joints (who needs 'em, eh?)
-
+            try:
+                # Delete XModel's joints
                 cmds.delete('Joints')
+            except:
+                good_model = False
+                e = "joints error"
 
+            try:
                 # Rename model from modelname_LOD0 to modelname_DUPLICATENUMBER
-
                 cmds.rename(modelname + '_LOD0', modelname + '__%i'
                             % duplicates)
-                            
-                # Parent mesh to group 'xmodels'
+            except:
+                good_model = False
+                e = "rename error"     
 
+            try:
+                # Parent mesh to group 'xmodels'
                 cmds.parent(modelname + '__%i' % duplicates, 'xmodels')
 
+            except:
+                good_model = False
+                e = "parent error"        
 
-        except:
-            good_model = False
+
         
         if good_model:
             currentModel = modelname + '__%i' % duplicates
@@ -190,4 +206,9 @@ class CODMAP(object):
                         absolute=True)
 
         if not good_model:
-            badModels.append(modelname)
+            if modelname not in badModels:
+                badModels.append(modelname)
+                badModels.append(e)
+                badModels.append("\n")
+
+        return badModels

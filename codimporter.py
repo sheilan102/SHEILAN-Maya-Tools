@@ -41,8 +41,6 @@ class CODMAP(object):
         mapname,
         ):
  
-        # Load XModels JSON File
-        
         # Load Model Properties
         #cmds.file(force=True)
         json_models = open(map_dest + "_xmodels.json") 

@@ -111,7 +111,6 @@ class CODMAP(object):
 
     def addXModel(self, xmodel_folder, XModel, duplicates, badModels):
         good_model = True
-        model_rotaion = True
 
         # Define model & fix it's name since Maya doesn't like some characters
         modelname = XModel['Name']
@@ -128,7 +127,7 @@ class CODMAP(object):
         if 'RotX' in XModel:
             xmodelRot = [XModel['RotX'],XModel['RotY'],XModel['RotZ']]
         else:
-            model_rotaion = False
+            xmodelRot = 0,0,0
         
         # Check if model exists and duplicate, to avoid importing same model twice
         if cmds.objExists(mayamodel + '__%i' % duplicates) == True:
@@ -185,12 +184,11 @@ class CODMAP(object):
                         float(xmodelPos[2]), currentModel,
                         absolute=True)
 
-            # Rotate model if it has angle values
-            if model_rotaion:
-                cmds.rotate(float(xmodelRot[0]),
-                            float(xmodelRot[1]),
-                            float(xmodelRot[2]), currentModel,
-                            absolute=True)
+            # Rotate model
+            cmds.rotate(float(xmodelRot[0]),
+                        float(xmodelRot[1]),
+                        float(xmodelRot[2]), currentModel,
+                        absolute=True)
             
             # Scale model
             cmds.scale(float(XModel['Scale']) * 0.3937007874015748,

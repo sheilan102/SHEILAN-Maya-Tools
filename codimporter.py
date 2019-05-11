@@ -25,11 +25,6 @@ class CODMAP(object):
             print(xmodel_folder)
             print(map_name)
             self.importMap(map_dest,xmodel_folder,map_name)
-            # try:
-            #     self.importMap(map_dest,xmodel_folder,map_name)
-            #     SHEILAN_Tools.__log_info__(True, "Map imported succesfully")
-            # except:
-            #     SHEILAN_Tools.__log_info__(False, "Wrong directory selected")
         else:
             SHEILAN_Tools.__log_info__(False, "One or two of the necessary directories were not selected")
 
@@ -41,10 +36,7 @@ class CODMAP(object):
         mapname,
         ):
  
-        # Load XModels JSON File
-        
         # Load Model Properties
-        #cmds.file(force=True)
         json_models = open(map_dest + "_xmodels.json") 
         modeldata = json.load(json_models)
 
@@ -53,82 +45,75 @@ class CODMAP(object):
         badModels = []
 
         # Create groups for the loaded data
- 
         cmds.group(em=True, name='xmodels')
         cmds.group(em=True, name=mapname + '_group')
         cmds.group(em=True, name='mapGeoemtry')
  
         # Import the map .obj fom Husky folder
- 
         cmds.file(map_dest + '.obj', i=True)
  
         # Create a list of all geometry in the scene
- 
         MapList = cmds.ls(geometry=True)
  
         # Parent each geoemtry into 'mapGeometry' group (no xmodels)
- 
         for m in MapList:
             cmds.parent(m, 'mapGeoemtry')
  
         # Create .txt file with all bad models
         f_badmodels = open(map_dest + "_badModels.txt", "w")
+        
         # Read XModels data
- 
         for XModel in modeldata:
             # Load current XModel data from JSON
-            #print(modelname)
-            #print(XModel)
             if 'Name' in XModel:    
-                try:
-                    self.addXModel(xmodel_folder, XModel, 1, badModels)
-                except:
-                    return
+                self.addXModel(xmodel_folder, XModel, 1, badModels)
 
  
             # Loading progress
-            #SHEILAN_Tools.__log_info__(True, "loaded %i" % len(modeldata))
             print("loaded " + str(curAmount) + " of " + str(len(modeldata)))
             curAmount += 1
             #reporter = mel.eval('string $tmp = $gCommandReporter;')
             #cmds.cmdScrollFieldReporter(reporter, e=True, clear=True
 
+        # Write all bad imports to file
         for b in badModels:
-            f_badmodels.write(b + "\n")
+            f_badmodels.write(b)
         f_badmodels.close()
 			
-        # Delete all corrupted models
-        for o in cmds.ls():
+        # Delete all corrupted models & joints
+        for o in cmds.ls(mat = False):
             if "|" not in o:
                 if "Joints" in o or "LOD" in o:
                     try:
                         cmds.delete(o)
                     except:
-                        continue
+                        print('')
 
-        # Rescale mapGeo accordingly to match XModels' scale
+        # Rescale mapGeo
         cmds.scale(0.3937007874015748,
                    0.3937007874015748,
                    0.3937007874015748,
                    'mapGeoemtry', absolute=True)
  
         # Group both xmodels & mapGeo to one final group
- 
         cmds.parent('xmodels', mapname + '_group')
         cmds.parent('mapGeoemtry', mapname + '_group')
         cmds.polyColorSet( delete= True, colorSet= 'colorSet1')
+
         # Rescale the map to 0.01 because it's too damn huge
- 
         cmds.scale(0.01, 0.01, 0.01, mapname + '_group', absolute=True)
  
+        # Success
         print('imported %i models' % (len(modeldata)-(len(badModels))))
         print('%i corruputed models' % len(badModels))
-        print(badModels)
 
  
- 
+
     def addXModel(self, xmodel_folder, XModel, duplicates, badModels):
         good_model = True
+        model_rotaion = True
+
+        # Define model & fix it's name since Maya doesn't like some characters
         modelname = XModel['Name']
         if "/" in modelname:
             modelname = modelname.split("/")[1]
@@ -136,26 +121,35 @@ class CODMAP(object):
             mayamodel = modelname.replace("@","_")
         else:
             mayamodel = modelname
+
         xmodelPos = [XModel['PosX'],XModel['PosY'],XModel['PosZ']]
-        xmodelRot = [XModel['RotX'],XModel['RotY'],XModel['RotZ']]
+
+        # Check if the model has Rotation values
+        if 'Rot' in XModel:
+            xmodelRot = [XModel['RotX'],XModel['RotY'],XModel['RotZ']]
+        else:
+            model_rotaion = False
         
         # Check if model exists and duplicate, to avoid importing same model twice
         if cmds.objExists(mayamodel + '__%i' % duplicates) == True:
             # Go through duplicates untill there's an available name
             while cmds.objExists(mayamodel + '__%i'  % duplicates) == True:
                 duplicates += 1
-
+            
+            # Duplicate last copy of the model
             cmds.duplicate(mayamodel + '__%i' % (duplicates-1))
 
+        # If current XModel doesn't exist in the scene, load it
         else:
+            # Import
             try:
-                # If current XModel doesn't exist in the scene, import it
                 cmds.file(xmodel_folder + '\\' + modelname + '\\'
                             + modelname + '_LOD0.ma', i=True)
             except:
                 good_model = False
                 e = "import error"
 
+            # Delete Joints
             try:
                 # Delete XModel's joints
                 cmds.delete('Joints')
@@ -163,6 +157,7 @@ class CODMAP(object):
                 good_model = False
                 e = "joints error"
 
+            # Rename model
             try:
                 # Rename model from modelname_LOD0 to modelname_DUPLICATENUMBER
                 cmds.rename(modelname + '_LOD0', modelname + '__%i'
@@ -171,8 +166,8 @@ class CODMAP(object):
                 good_model = False
                 e = "rename error"     
 
+            # Parent to '_xmodels' group
             try:
-                # Parent mesh to group 'xmodels'
                 cmds.parent(modelname + '__%i' % duplicates, 'xmodels')
 
             except:
@@ -180,31 +175,30 @@ class CODMAP(object):
                 e = "parent error"        
 
 
-        
+        # Check if model was loaded succesfully into Maya
         if good_model:
             currentModel = modelname + '__%i' % duplicates
 
             # Move model
-
             cmds.move(float(xmodelPos[0]),
                         float(xmodelPos[1]),
                         float(xmodelPos[2]), currentModel,
                         absolute=True)
 
-            # Rotate model
-
-            cmds.rotate(float(xmodelRot[0]),
-                        float(xmodelRot[1]),
-                        float(xmodelRot[2]), currentModel,
-                        absolute=True)
-
+            # Rotate model if it has angle values
+            if model_rotaion:
+                cmds.rotate(float(xmodelRot[0]),
+                            float(xmodelRot[1]),
+                            float(xmodelRot[2]), currentModel,
+                            absolute=True)
+            
             # Scale model
-
-            cmds.scale(float(XModel['Scale']) * 0.5,
-                        float(XModel['Scale']) * 0.5,
-                        float(XModel['Scale']) * 0.5, currentModel,
+            cmds.scale(float(XModel['Scale']) * 0.3937007874015748,
+                        float(XModel['Scale']) * 0.3937007874015748,
+                        float(XModel['Scale']) * 0.3937007874015748, currentModel,
                         absolute=True)
 
+        # If model was not imported succesfully, add to '_badModels.txt' file
         if not good_model:
             if modelname not in badModels:
                 badModels.append(modelname)

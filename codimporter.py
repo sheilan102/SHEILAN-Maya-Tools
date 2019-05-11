@@ -125,7 +125,7 @@ class CODMAP(object):
         xmodelPos = [XModel['PosX'],XModel['PosY'],XModel['PosZ']]
 
         # Check if the model has Rotation values
-        if 'Rot' in XModel:
+        if 'RotX' in XModel:
             xmodelRot = [XModel['RotX'],XModel['RotY'],XModel['RotZ']]
         else:
             model_rotaion = False

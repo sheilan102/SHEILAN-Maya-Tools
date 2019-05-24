@@ -5,7 +5,7 @@ All codes are made to make your life easier, so if something is bothering you, l
 
 ## Features
 
-* Load FULL maps exported with [**C2M**](https://github.com/sheilan102/C2M).
+* Load COD Maps.
 * Import separated body parts into fullbody character.
 
 
@@ -19,10 +19,11 @@ Download all .py files and place them in -
 
 Launch Maya, go to `Window->Settings/Preferences->Plugin Manager`, look for `SHEILAN's Tools.py` and enable it.
 
-#
+- To extract/import COD Maps you need to install both [**C2M**](https://github.com/sheilan102/C2M) and [**Greyhound by Scobalula**](https://github.com/Scobalula/Greyhound)
+
+# 
 
 #### Map Importer
-
 1. Export MAP using C2M (above).
 2. Go to exported MAP's folder, and open **`mp_mapname_xmodelList.txt`**.
 3. Copy the search string as it is, and load Greyhound.

@@ -31,20 +31,9 @@ class XModelAlign(object):
     def movePivot(self, object1, object2):
         position = pm.xform(object1, q=1, ws=1, rp=1)
         move_piv = pm.xform(object2,ws=1, rp=position,piv=position)
-    
-    def findFolderOfModel(self, file_path=""):
-        list = file_path.split('\\')[0:-1]
-        f = ''
-        for l in list:
-            f+=l + "/"
-
-        return f[:-1]
-
-    def findRigOfModel(self, file_path=""):
-        rig_file = file_path.split('\\')[-1]
-       
-        return rig_file.replace(".ma", "_BIND.mel")
-        
+    def rigModel(self, file_path=""):
+    	rig_file = file_path.replace(".ma", "_BIND.mel").replace("\\","/")
+    	mel.eval('source "%s"' %(str(rig_file)))
     def loadModelData(self, file_path="", part="", count=0):
         # Load model
         try:
@@ -59,7 +48,6 @@ class XModelAlign(object):
 
         except:
             SHEILAN_Tools.__log_info__(False, "No model selected")
-
     def importModel(self):
 
         mode_game = cmds.optionMenu('mode_game', query=True, value=True)
@@ -69,60 +57,63 @@ class XModelAlign(object):
 
         # Import body file
         body_file = SHEILAN_Tools.__importfile_dialog__(
-            ".MA Files (*.ma)", "Load body model", 1)
+            ".MA Files (*.ma)", "Load torso model", 1)
+        defPart = None
+        if "_torso" in body_file:
+        	defPart = "torso"
+        elif "_body" in body_file:
+        	defPart = "body"
+        if defPart != None:
+        	print("Wrong body part selected (please select body or torso model file)")
+        	head_file = body_file.replace(defPart,"head")
 
-        # Import head file
-        head_file = SHEILAN_Tools.__importfile_dialog__(
-            ".MA Files (*.ma)", "Load head model", 1)
+	        # Load body
+	        self.loadModelData(body_file, "body", playerbody_amount)
+
+	        # Load & align head
+	        self.loadModelData(head_file, "head", playerbody_amount)  
+	        self.alignHead(playerbody_amount, mode_game)
+
+	        #Check if it's BO4 character
+	        if mode_game == "BO 3/4":
+	            # Import legs file
+	            legs_file = body_file.replace(defPart,"legs")
+	            # Import hands file
+	            arm_file = body_file.replace(defPart,"arms")
+	            
+	            # Delete Torso's hip joints
+	            cmds.delete("body_skeleton" + str(playerbody_amount) + "|j_mainroot|j_hip_le")
+	            cmds.delete("body_skeleton" + str(playerbody_amount) + "|j_mainroot|j_hip_ri") 
+
+	            # Load & align legs
+	            self.loadModelData(legs_file, "legs", playerbody_amount)
+	            self.alignLegs(playerbody_amount)
+
+	            # Load & align hands
+	            self.loadModelData(arm_file, "arms", playerbody_amount)
+	            self.alignHands(playerbody_amount)
         
-        # Load body
-        self.loadModelData(body_file, "body", playerbody_amount)
 
-        # Load & align head
-        self.loadModelData(head_file, "head", playerbody_amount)  
-        self.alignHead(playerbody_amount, mode_game)
+	            cmds.rename("body_skeleton" + str(playerbody_amount),'playermodel' + str(playerbody_amount) + '_skeleton')
+	            print("playercount " + str(playerbody_amount))
 
-        #Check if it's BO4 character
-
-        if mode_game == "BO 3/4":
-            # Import legs file
-            legs_file = SHEILAN_Tools.__importfile_dialog__(
-                ".MA Files (*.ma)", "Load legs model", 1)
-
-            # Import hands file
-            arm_file = SHEILAN_Tools.__importfile_dialog__(
-                ".MA Files (*.ma)", "Load arms model", 1)
-            
-            # Load & align legs
-            self.loadModelData(legs_file, "legs", playerbody_amount)
-            self.alignLegs(playerbody_amount)
-
-            # Load & align hands
-            self.loadModelData(arm_file, "arms", playerbody_amount)
-            self.alignHands(playerbody_amount)
-
-            # Delete Torso's hip joints
-            cmds.delete("body_skeleton" + str(playerbody_amount) + "|j_mainroot|j_hip_le")
-            cmds.delete("body_skeleton" + str(playerbody_amount) + "|j_mainroot|j_hip_ri") 
-        
-
-        cmds.rename("body_skeleton" + str(playerbody_amount),'playermodel' + str(playerbody_amount) + '_skeleton')
-        print("playercount " + str(playerbody_amount))
-        
-        # Delete color Sets
-        for o in cmds.ls():
-            if "WraithMesh" in o:
-                cmds.select(o)
-                if cmds.polyColorSet( query=True, allColorSets=True, representation=True ) != None:
-                    cmds.polyColorSet( delete=True )
-
+	            self.rigModel(legs_file)
+	            self.rigModel(arm_file)
+	        
+	        self.rigModel(head_file)
+	        self.rigModel(body_file)
+	        # Delete color Sets
+	        for o in cmds.ls():
+	            if "WraithMesh" in o:
+	            	cmds.select(o)
+	            	if cmds.polyColorSet( query=True, allColorSets=True, representation=True ) != None:
+	            		cmds.polyColorSet( delete=True )
     def nextModel(self):
         count = 1
         while cmds.objExists('playermodel' + str(count) + '_skeleton'):
             count += 1
         
         return count
-
     def alignHead(self, playerbody_amount = 0, mode = ""):
         # Group head mesh + skeleton
         cmds.group(em=True, name='Head')
@@ -155,7 +146,6 @@ class XModelAlign(object):
                     "body_skeleton" + str(playerbody_amount) + body_joint_chain)
         cmds.delete("Head|head_skeleton" + str(playerbody_amount))
         cmds.ungroup("Head")
-
     def alignHands(self, playerbody_amount):
         # Group hands mesh + skeleton
         cmds.group(em=True, name='Arms')
@@ -177,15 +167,18 @@ class XModelAlign(object):
                     "body_skeleton" + str(playerbody_amount) + "|j_mainroot|j_spinelower|j_spineupper|j_spine4")
         cmds.delete("Arms|arms_skeleton" + str(playerbody_amount))
         cmds.ungroup("Arms")
-
     def alignLegs(self, playerbody_amount):
         # Attach Leg joints to Torso
-        cmds.parent("legs_skeleton" + str(playerbody_amount) + "|j_mainroot|j_hip_ri", "body_skeleton" + str(playerbody_amount) + "|j_mainroot")
-        cmds.parent("legs_skeleton" + str(playerbody_amount) + "|j_mainroot|j_hip_le", "body_skeleton" + str(playerbody_amount) + "|j_mainroot")
+        legs_joints = cmds.listRelatives("legs_skeleton" + str(playerbody_amount) + "|j_mainroot",c=True)
+        for joint in legs_joints:
+        	if joint == "j_spinelower":
+        		lowerSpine_joints = cmds.listRelatives("legs_skeleton" + str(playerbody_amount) + "|j_mainroot|" + joint,c=True)
+        		for ls_joint in lowerSpine_joints:
+        			if ls_joint != "j_spineupper":
+	        			cmds.parent("legs_skeleton" + str(playerbody_amount) + "|j_mainroot|j_spinelower|" + ls_joint, "body_skeleton" + str(playerbody_amount) + "|j_mainroot|j_spinelower")
+        	else:
+        		cmds.parent("legs_skeleton" + str(playerbody_amount) + "|j_mainroot|" + joint, "body_skeleton" + str(playerbody_amount) + "|j_mainroot")
+        
         cmds.delete("legs_skeleton" + str(playerbody_amount))
-    
-    def defaultButtonPush(self, *args):
-        print 'Button 1 was pushed.'
-    
     def printNewMenuItem(self, item ):
         return item

@@ -37,8 +37,7 @@ Launch Maya, go to `Window->Settings/Preferences->Plugin Manager`, look for `SHE
 1. Export your desired playermodel parts in **.MA format**.
 2. Load fullbody character through 'SHEILAN' menu.
 3. Choose your desired game (I only have acceess to the ones on the list, so if you export from games like IW, Ghosts, etc, then I suggest you first try using one of the two options, and if it won't work feel free to send me exported player parts and I'll add support.)
-4. Hit load, and select the body parts in order (4 parts for BO3/4, 2 for others).
-5. After model is imported, proceed to load all the `_BIND.mel` scripts to rig them (Will add an automatic option in future updates).
+4. Hit load, and select body/torso part.
 
 * After importing your second player to the scene, BIND scripts will give you error when trying to rig, because there will be more than one of each joint name, so what I suggest you to do is to `select all joint groups`, go to `Modify/Prefix Hierarchy Names` and select some prefix. Then you load the next BIND script, and rename them back through `Modify/Search & Replace Names` (search for whatever you wrote for prefix, and replace it with nothing).
 

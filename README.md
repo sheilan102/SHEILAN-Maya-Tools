@@ -1,6 +1,5 @@
 # SHEILAN's Maya Tools
-Here's a small Maya plugin featuring every script I ever made for the program to automate long and annoying jobs.
-All codes are made to make your life easier, so if something is bothering you, let me know and I shall fix it.
+Here's a small Maya plugin featuring every script I ever made for the program to automate my work.
 
 
 ## Features

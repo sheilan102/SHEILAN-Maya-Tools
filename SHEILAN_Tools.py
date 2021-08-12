@@ -1,4 +1,3 @@
-"""A plugin designed to import and export SE formats from Autodesk Maya"""
 
 import maya.mel as mel
 import maya.cmds as cmds

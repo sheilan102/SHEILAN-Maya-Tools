@@ -4,7 +4,7 @@ Here's a small Maya plugin featuring every script I ever made for the program to
 
 ## Features
 
-* Load COD Maps.
+* Load COD Maps using [**C2M**](https://github.com/sheilan102/C2M) and [**Greyhound by Scobalula**](https://github.com/Scobalula/Greyhound)
 * Import separated body parts into fullbody character.
 
 
@@ -18,7 +18,6 @@ Download all .py files and place them in -
 
 Launch Maya, go to `Window->Settings/Preferences->Plugin Manager`, look for `SHEILAN's Tools.py` and enable it.
 
-- To extract/import COD Maps you need to install both [**C2M**](https://github.com/sheilan102/C2M) and [**Greyhound by Scobalula**](https://github.com/Scobalula/Greyhound)
 
 # 
 

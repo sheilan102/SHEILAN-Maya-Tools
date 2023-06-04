@@ -79,7 +79,7 @@ class CODMAP(object):
         for b in badModels:
             f_badmodels.write(b)
         f_badmodels.close()
-			
+            
         # Delete all corrupted models & joints
         for o in cmds.ls(mat = False):
             if "|" not in o:
